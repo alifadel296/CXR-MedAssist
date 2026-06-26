@@ -6,13 +6,13 @@
   \____/_/\_\_| \_\    |_|  |_|\___|\__,_/_/   \_\___/___/_|___/\__| 
   ```
 ------------------------------------------------------------------------ 
-# 🏥 CXR-MedAssist — Multimodal Chest X-Ray Diagnosis Assistant
+#  CXR-MedAssist — Multimodal Chest X-Ray Diagnosis Assistant
 
 This is my graduation project that combines a fine-tuned vision-language model for radiological image captioning with a fine-tuned clinical reasoning model for interactive Q&A, all wrapped in a lightweight Gradio interface.
 
 ---
 
-## 📌 Overview
+##  Overview
 
 CXR-MedAssist is a two-stage AI pipeline designed to assist in the interpretation of chest X-ray (CXR) images:
 
@@ -23,17 +23,17 @@ The system is designed to avoid hallucinations by grounding the reasoning model 
 
 ---
 
-## 🧠 Models
+##  Models
 
 Both models powering this project were **fine-tuned and published on Hugging Face** by me.
 
-### 🔬 Vision Model — Qwen2.5-VL 7B (CXR Captioner)
+###  Vision Model — Qwen2.5-VL 7B (CXR Captioner)
 - **Base:** `Qwen/Qwen2.5-VL-7B-Instruct`
 - **Fine-tuned on:** MIMIC-CXR radiology dataset
 - **Task:** Chest X-ray image understanding and clinical finding extraction
 - **HuggingFace:** [Qwen Model](https://huggingface.co/AliFadel/Qwen_2.5_VL_7B_Instruct_MIMIC-CXR)
 
-### 🤖 Reasoning Model — DeepSeek-R1 (Clinical Q&A)
+###  Reasoning Model — DeepSeek-R1 (Clinical Q&A)
 - **Base:** `DeepSeek-R1` (medical variant)
 - **Fine-tuned on:** Medical O1-style question-answering data
 - **Task:** Grounded clinical reasoning and diagnostic conversation
@@ -43,7 +43,7 @@ Both models are loaded in **4-bit quantization** via `bitsandbytes` to allow inf
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 CXR-MedAssist/
@@ -54,7 +54,7 @@ CXR-MedAssist/
 └── Usage_Example.ipynb           
 ```
 
-## 🚀 Installation & Usage
+##  Installation & Usage
 
 ### Option 1 — Google Colab (Recommended)
 
@@ -82,7 +82,7 @@ python app.py
 ```
 ---
 
-## 🖥️ How to Use
+## How to Use
 
 1. **Upload a Chest X-Ray** image using the image panel on the left.
 2. Click **"Extract Findings"** — the Qwen vision model will analyze the image and display the clinical findings.
@@ -91,7 +91,7 @@ python app.py
 
 ---
 
-## 🔧 Technical Notes
+##  Technical Notes
 
 - The vision model uses a **structured prompt** that explicitly instructs the model to avoid referencing prior studies, reducing comparative hallucinations.
 - The reasoning model applies **post-processing cleanup** to strip chain-of-thought `<think>` blocks and prevent token-loop artifacts that can arise from mixed tokenizer environments.
@@ -99,7 +99,7 @@ python app.py
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 > **This project is intended for educational and research purposes only.**
 >
