@@ -22,7 +22,7 @@ class QwenCaptioner:
         )
 
     def generate(self, pil_image):
-        # Exclude previous studies completely (Preventing hallucinations)
+        # Exclude previous studies to prevent hallucinations
         prompt = (
             "Analyze this chest X-ray image and provide a concise description of the findings. "
             "Do NOT reference or mention any previous studies, historical comparisons, or prior reports. "

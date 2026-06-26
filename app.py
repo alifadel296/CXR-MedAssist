@@ -23,7 +23,7 @@ def chat_response(user_message, history, caption):
     # To exit type q, quit, or exit (no matter the character case)
     if user_message.lower().strip() in ['q', 'quit', 'exit']:
         return history + [[user_message, "Session closed. Please refresh the app to start over."]], ""
-    # Enforce the user to extract the findings first (Medical Caption).
+    # Force the user to extract the findings first (Medical Caption).
     if not caption or "Please upload" in caption:
         return history + [[user_message, "Please extract CXR findings using Step 1 before chatting."]], ""
     
