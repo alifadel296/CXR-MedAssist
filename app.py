@@ -9,22 +9,21 @@ sys.path.append(os.path.abspath('.'))
 from src.qwen_generation import QwenCaptioner
 from src.deepseek_generation import DeepSeekChat
 
-print("Initialising Vision pipeline...")
+# Initialising Vision pipeline
 qwen_model = QwenCaptioner()
-
-print("Initialising Reasoning pipeline...")
+# Initialising Reasoning pipeline
 deepseek_model = DeepSeekChat()
 
 def process_image(image):
     if image is None:
-        return "Please upload a clinical scan image."
+        return "Please upload an image."
     return qwen_model.generate(image)
 
 def chat_response(user_message, history, caption):
-    # Enforce standard exit rules cleanly via UI loop
+    # To exit type q, quit, or exit (no matter the character case)
     if user_message.lower().strip() in ['q', 'quit', 'exit']:
         return history + [[user_message, "Session closed. Please refresh the app to start over."]], ""
-        
+    # Enforce the user to extract the findings first (Medical Caption).
     if not caption or "Please upload" in caption:
         return history + [[user_message, "Please extract CXR findings using Step 1 before chatting."]], ""
     
@@ -32,7 +31,7 @@ def chat_response(user_message, history, caption):
     history.append((user_message, clean_reply))
     return history, ""
 
-# Building Gradio UI Layout
+
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
     gr.Markdown("# 🏥 Multimodal Chest X-Ray Diagnosis Assistant")
     
@@ -52,5 +51,5 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     btn_clear.click(lambda: None, None, chatbot, queue=False)
 
 if __name__ == "__main__":
-    # share=True creates a public live URL accessible outside Colab runtime
-    demo.launch(share=True, debug=True)
+    # share=True creates a public live URL accessible outside your runtime.
+    demo.launch(share=False, debug=True)

@@ -21,18 +21,14 @@ class DeepSeekChat:
         )
 
     def clean_output(self, raw_text):
-        """
-        Cleans tokenizer artifacts and stops loops by truncating the text 
-        the exact moment a structural repetition or hallucinated chat turn begins.
-        """
-        # 1. Replace Byte-Level BPE artifacts back to standard text strings
+        # Replace special tokens with their intended representations (it happens due to modules conflict)
         clean_text = raw_text.replace('Ġ', ' ').replace('Ċ', '\n')
         
-        # 2. Strip out reasoning blocks cleanly
+        # Strip out reasoning blocks cleanly
         clean_text = re.sub(r'<think>.*?</think>', '', clean_text, flags=re.DOTALL)
         clean_text = re.sub(r'<think>.*', '', clean_text, flags=re.DOTALL) # Catch open-ended reasoning
         
-        # 3. Dynamic Truncation: Hard-stop processing if the model hallucinates a new loop
+        # Dynamic Truncation: Hard-stop processing if the model hallucinates a new loop
         stop_patterns = [
             r'<\|eot_id\|>', 
             r'<\|im_end\|>', 
@@ -47,7 +43,7 @@ class DeepSeekChat:
             # re.split keeps everything BEFORE the match in index [0] and discards the rest
             clean_text = re.split(pattern, clean_text)[0]
         
-        # 4. Clean up any remaining raw structural brackets
+        # Clean up any remaining raw structural brackets
         clean_text = re.sub(r'<[^>]+>', '', clean_text)
         
         return clean_text.strip()

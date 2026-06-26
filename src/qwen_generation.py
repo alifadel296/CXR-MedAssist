@@ -6,7 +6,7 @@ class QwenCaptioner:
     def __init__(self):
         model_id = "AliFadel/Qwen_2.5_VL_7B_Instruct_MIMIC-CXR"
         
-        # 4-bit configuration to prevent Colab GPU crash
+        # 4-bit configuration
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
@@ -22,7 +22,7 @@ class QwenCaptioner:
         )
 
     def generate(self, pil_image):
-        # Enforcing Note 1: Exclude previous studies completely
+        # Exclude previous studies completely (Preventing hallucinations)
         prompt = (
             "Analyze this chest X-ray image and provide a concise description of the findings. "
             "Do NOT reference or mention any previous studies, historical comparisons, or prior reports. "
