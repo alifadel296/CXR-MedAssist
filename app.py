@@ -33,7 +33,7 @@ def chat_response(user_message, history, caption):
 
 
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
-    gr.Markdown("# 🏥 Multimodal Chest X-Ray Diagnosis Assistant")
+    gr.Markdown("# Multimodal Chest X-Ray Diagnosis Assistant")
     
     with gr.Row():
         with gr.Column(scale=1):
